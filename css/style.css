@@ -78,6 +78,7 @@ form.login{
 	margin:10px 0px 0px 0px;
 }
 .form_wrapper input[type="text"],
+.form_wrapper input[type="number"],
 .form_wrapper input[type="password"]{
 	border: solid 1px #E5E5E5;
 	background: #FFFFFF;
@@ -118,6 +119,7 @@ form.login{
 	margin:2px 5px 0px 0px;
 }
 .form_wrapper input[type="text"]:focus,
+.form_wrapper input[type="number"]:focus,
 .form_wrapper input[type="password"]:focus{
 	background:#feffef;
 }

@@ -1,6 +1,6 @@
 <?php
   include("function/condb.php");
-  include("function/db_pdo_conn.php");  
+  include("function/db_pdo_conn.php");
 ?>
 
   <title>SmartShelf</title>
@@ -23,8 +23,8 @@
 
   	#footer {
 		position:fixed;
-		left:91%;
-		bottom:1%;
+		left:95%;
+		bottom:2%;
 	}
 	#footerback,
 	#footernext {
@@ -39,53 +39,20 @@
 
   </style>
 
-<script type="text/javascript">
-var shelf_num=0;
-
-window.onload = function add(){
-	var i=document.getElementById("drop").getAttribute('value');
-	for(var t=1;t<=i;t++){
-		  var x=document.getElementById("drop");
-		  x.innerHTML+="<a href='row.php?&shop_id=shop"+t+"?&shelf_id=shelf"+t+".php'>第"+t+"排</a> ";
-	 }
-	 //next_shelf();
-  }
-/*
- function next_shelf(){
-	var x=document.getElementById("drop");
-	x.id='drop'+shelf_num;
-	shelf_num++;
-  } 
-
-function add1(){
-	
-	for(var t=0;t<7;t++){
-		  var x=document.getElementById("drop1");
-		  x.innerHTML+="<a href='row"+t+".php'>第"+111+"排</a> ";
-	 }
-
-  }
-
-  function add2(){
-	var i=document.getElementById("drop0").getAttribute('value0');
-	for(var t=0;t<i;t++){
-		  var x=document.getElementById("drop0");
-		  x.innerHTML+="<a href='row"+t+".php'>第"+0+"排</a> ";
-	 }
-
-  }*/
-
-</script>
-
-
 <!--Navbar-->
 <div class="w3-top" style="font-family:Microsoft JhengHei;">
   <ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+	  <!--設定時間-------------------------------------------------------------------------->
+	  <?php
+	  date_default_timezone_set('Asia/Taipei');
+	  $date = date('Y-m-d H:i:s');
+	  ?>
+	  <!--設定時間END----------------------------------------------------------------------->
   
   	  <!--顯示店家-------------------------------------------------------------------------->
   	  <?php
-		$get_shop_id = @$_GET['shop_id'];
-		$shop = "SELECT * FROM shop where shop_id = '$get_shop_id'";
+	    $get_shop_id = @$_GET['shop_id'];
+		$shop = "SELECT * FROM shop WHERE shop_id = '$get_shop_id'";
 		$get_shop = $db->query($shop);
 		
 		$sql = "SELECT * FROM shop";
@@ -93,19 +60,19 @@ function add1(){
       
 	  if($shop_data = $get_shop->fetch()) {
 		echo '<li class="w3-hide-small w3-dropdown-hover"><div>';
-		echo '<a href="javascript:void(0)" class="w3-hover-none w3-Indigo w3-hover-Indigo w3-hover-text-white w3-padding-large"><b>';
+		echo '<a href="javascript:void(0)" class="w3-hover-none w3-Indigo w3-hover-Indigo w3-hover-text-white w3-padding-large  "><b>';
 		echo @$shop_data[1];	//shop name
 		echo '</b></a>';
 	  }
 	  else{
 		  echo '<li class="w3-hide-small w3-dropdown-hover"><div>';
-		  echo '<a href="index.php" class="w3-hover-none w3-Indigo w3-hover-Indigo w3-hover-text-white w3-padding-large"><b>店家</b></a>';
+		  echo '<a href="javascript:void(0)" class="w3-hover-none w3-Indigo w3-hover-Indigo w3-hover-text-white w3-padding-large"><b>店家</b></a>';		//index2改改
 	  }
 
-      echo '<div class="w3-dropdown-content w3-white w3-card-4">';
-			while($shop_name = $result->fetch()) {
-				echo '<a href="index.php?&shop_id='.$shop_name[0].'"><b>';		//shop id
-				echo $shop_name[1];	//shop name
+      echo '<div class="w3-dropdown-content w3-white w3-text-black">';
+			while($shop_data = $result->fetch()) {
+				echo '<a href="index2.php?&shop_id='.$shop_data[0].'" class="w3-text-black"><b>';		//shop id
+				echo $shop_data[1];	//shop name
 				echo '</b></a>';
 			}
 	  echo '</div></li>';
@@ -117,46 +84,120 @@ function add1(){
 			$sql2 = "SELECT * FROM shelf where shop_id = '$get_shop_id'";
 			$result2 = $db->query($sql2);
 			$count=0;
+			$count2=0;
+
+			$row = "SELECT * FROM row where shop_id = '$get_shop_id' ORDER BY shelf_id";
+			$result3 = $db->query($row);
 
 		  while($shelf_data = $result2->fetch()) {
-			echo '<li class="w3-hide-small w3-dropdown-hover">';
-			echo '<a href="javascript:void(0)" class="w3-hover-none w3-padding-large">';
+			echo '<li class="w3-hide-small w3-dropdown-hover w3-text-white">';
+			echo '<a href="javascript:void(0)" class="w3-hover-none w3-padding-large w3-text-white">';
 			echo @$shelf_data[2];		//shelf name
 			echo '</a>';
-			echo '<div class="w3-dropdown-content w3-white w3-card-4" id="drop" value="';
+			echo '<div class="w3-dropdown-content w3-white" id="drop';
+			echo @$count;
+			echo '" value="';
 			echo @$shelf_data[3];		//row num
 			echo '"></div></li>';
+			$count++;
+
+			while($row_data = $result3->fetch()){			//讀取row_data,建立超連結			
+			  	echo '<div style="display:none" id="link';	//style="display:none" 可能不支援
+				echo @$count2;	
+				echo '">';
+				echo 'row.php?row_id=';
+				echo @$row_data[1];
+				echo '&shelf_id=';
+				echo @$row_data[0];
+				echo '&shop_id=';
+				echo @$get_shop_id;
+				echo '</div>';
+				$count2++;
+			  }
 		  }
 	  	?>
 	  <!--顯示該店家的櫃子END---------------------------------------------------------------->
 	
-	  <!--店家與展示櫃的新增、刪除、修改----------------------------------------------------->
+	  <!--店家與展示櫃的新增、刪除、修改------------------------------------------------------>
 		<?php
 		  if($get_shop_id) {
 			echo '<li class="w3-hide-small w3-red w3-right w3-dropdown-hover">';
-			echo '<a href="javascript:void(0)" class="w3-hover-red w3-padding-large"><b>　　EDIT　　</b></a>';
-			echo '<div class="w3-dropdown-content w3-white w3-card-4" >';
-			echo '<a href="add_shelf.php?&shop_id='.$get_shop_id.'">新增展示櫃</a>';	//shop id
-			echo '<a href="edit_shop.php?&shop_id='.$get_shop_id.'">編輯店家名稱</a>';
-			echo '<a href="info_shop.php?&shop_id='.$get_shop_id.'">展示此店家</a>';
-			echo '<a href="del_shop.php?&shop_id='.$get_shop_id.'">刪除此店家</a>';
+			echo '<a href="javascript:void(0)" class="w3-hover-red w3-padding-large w3-text-white"><b>　　選項　　</b></a>';
+			echo '<div class="w3-dropdown-content w3-white">';
+			echo '<a href="add_shelf.php?&shop_id='.$get_shop_id.'" class="w3-text-black">新增展示櫃</a>';	//shop id
+			echo '<a href="edit_shop.php?&shop_id='.$get_shop_id.'" class="w3-text-black">編輯此店家</a>';
+			echo '<a href="info_shop.php?&shop_id='.$get_shop_id.'" class="w3-text-black">展示此店家</a>';
+			echo '<a href="del_shop.php?&shop_id='.$get_shop_id.'" class="w3-text-black">刪除此店家</a>';
 			echo '</div></li>';
 		  }
 		  else{
 			echo '<li class="w3-hide-small w3-red w3-right w3-dropdown-hover">';
-			echo '<a href="javascript:void(0)" class="w3-hover-red w3-padding-large"><b>　　EDIT　　</b></a>';
-			echo '<div class="w3-dropdown-content w3-white w3-card-4" >
+			echo '<a href="javascript:void(0)" class="w3-hover-red w3-padding-large w3-text-white"><b>　　選項　　</b></a>';
+			echo '<div class="w3-dropdown-content w3-white w3-text-black" >
 				  <a href="add_shop.php">新增店家</a>
-				 </div></li>';
+				  <a href="add_shop.php">網頁說明</a>
+				  <a href="add_shop.php">關於我們</a>
+				  </div></li>';
 		  }
 		?>
 	<!--店家與展示櫃的新增、刪除、修改END-------------------------------------------------->
-	
   </ul>
 </div>
 
 <div id="footer">
 	<div id="footerback">
-	<a href=index.php><img src="img/home.png"/>
+	<a href=index.php><img src="img/logo.png"/></a>
 	</div>
 </div>
+
+<?php
+	$row = "SELECT * FROM row where shop_id = '$get_shop_id'";
+	$result = $db->query($row);
+?>
+<script type="text/javascript">	
+	var id_count;
+	var count=0;
+
+	//生成下拉選單
+	window.onload = function add(){
+		for(id_count=0; id_count<20; id_count++){
+			var row_num=document.getElementById("drop"+id_count).getAttribute('value');		// 取得value (num of rows)
+			for(var row=1; row<=row_num; row++){								// 逐row生成下拉選單
+				  var x=document.getElementById("drop"+id_count);				
+				  var y=document.getElementById("link"+count).innerHTML;		// 分配各row超連結
+				  x.innerHTML+="<a href='"+y+"' class='w3-text-black'>第"+row+"排</a> ";
+				  count++;
+
+			 }
+		 }
+	 count=0;
+	}
+	//生成下拉選單END
+</script>
+
+<!--
+
+                       _oo0oo_
+                      o8888888o
+                      88" . "88
+                      (| -_- |)
+                      0\  =  /0
+                    ___/`---'\___
+                  .' \\|     |# '.
+                 / \\|||  :  |||# \
+                / _||||| -:- |||||- \
+               |   | \\\  -  #/ |   |
+               | \_|  ''\---/''  |_/ |
+               \  .-\__  '-'  ___/-. /
+             ___'. .'  /--.--\  `. .'___
+          ."" '<  `.___\_<|>_/___.' >' "".
+         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+         \  \ `_.   \_ __\ /__ _/   .-` /  /
+     =====`-.____`.___ \_____/___.-`___.-'=====
+                       `=---='
+
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+               佛祖保佑         永無BUG
+-->
