@@ -1,4 +1,4 @@
-<?php include("navbar.php"); ?>  	
+<?php include("navbar_english.php"); ?>  	
 <html>
 <head>
 <link rel="shortcut icon" href="img/logo.png"/>
@@ -33,7 +33,7 @@
 			$result = $db->query($sql);
 			$css_count = 0;
 			while($shop_ = $result->fetch()) {
-				echo '<a href="index2.php?&shop_id='.$shop_[0].'">'; //shop id
+				echo '<a href="index2_english.php?&shop_id='.$shop_[0].'">'; //shop id
 					echo '<div class="w3-card-4 card" style="';
 						if($css_count%3==0 && $css_count>2){		//最左排
 							echo 'margin-top: 5%;';
@@ -56,23 +56,6 @@
 				$css_count++;
 			}
 		?>
-			<!--	大guy4這樣:
-
-			<a href="index.php?&shop_id='.$shop_[0].'">'	//$shop_[0] 店id連結
-				<div class="w3-card-4 card_1" style=" 看上面註解喇 ">
-				    <header class="w3-container w3-Indigo">		//header
-					  <p> 店名 <br></p>						//$shop_[1] 店名 (shop name)
-					</header>
-					<div class="w3-container w3-center">
-					  <p><br> 描述blablabla <br><br></p>		//描述
-					</div>
-				</div>
-			</a>
-
-			資料卡底層 暫時不加:
-			<footer class="w3-container w3-blue">
-			  <p><br>文字內容<br> </p>
-			</footer>-->
 	</div>
 	<!--顯示各店家資訊END-->
 </body>

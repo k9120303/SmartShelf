@@ -55,7 +55,7 @@
 
 	////////////////////	新增格子
 	if($_POST && $_POST["doAdd"]=="1"){
-		$add_grid = "INSERT INTO grid( grid_id, row_id, shop_id, name, look, think, sold) VALUES ('grid $date', '$get_row_id', '$get_shop_id', 'Untitled', '0','0','0')" ;
+		$add_grid = "INSERT INTO grid( grid_id, row_id, shop_id, name, look, think, sold) VALUES ('grid $date', '$get_row_id', '$get_shop_id', 'Untitled', '0','0','0','0')" ;
 		$stmt = $db->prepare($add_grid);
 		$stmt->execute();
 		echo '<script>window.location.href = "row.php?row_id='.$get_row_id.'&shelf_id='.$get_shelf_id.'&shop_id='.$get_shop_id.'";</script>';
@@ -222,4 +222,5 @@
 		document.getElementById("edit_look").value = document.getElementById("look"+<?php echo json_encode($get_grid_id); ?>).value ;
 		document.getElementById("edit_think").value = document.getElementById("think"+<?php echo json_encode($get_grid_id); ?>).value ;
 	}
+	
 </script>

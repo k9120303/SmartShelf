@@ -1,4 +1,4 @@
-<?php include("navbar.php"); ?>
+<?php include("navbar_english.php"); ?>
 <html>
     <head>
     </head>
@@ -9,21 +9,21 @@
 				<div id="form_wrapper" class="w3-card-4 form_wrapper" style="margin-left: 22%">
 					<form name="form" method="post" action="" class="login active" style="width: 150%">
 						<header class="w3-container w3-black">
-							<h1>新增展示櫃</h1>
+							<h1>Create Shelf</h1>
 						</header>
 						<div>
-							<label>展示櫃名稱:</label>
+							<label>Name:</label>
 							<input type="text" name="set_shelf_name" required/>
 							<span class="error">This is an error</span>
 						</div>
 						<div>
-							<label>展示櫃排數:</label>
+							<label>Number of Rows:</label>
 							<input type="number" name="set_row_num" min="1" max="10" required/>
 							<span class="error">This is an error</span>
 						</div>
 						<div class="bottom">
-							<input type="submit" name="button" value="新增" /></input>
-							<input type="button" value="取消" onclick="history.back()" />
+							<input type="submit" name="button" value="Create" /></input>
+							<input type="button" value="Cancel" onclick="history.back()" />
 							<div class="clear"></div>
 						</div>
 					</form>
@@ -44,7 +44,6 @@
 
 	if($_POST)
 	{
-		$get_shop_id = @$_GET['shop_id'];
 		$set_shelf_name = $_POST['set_shelf_name'];
 		$set_row_num = $_POST['set_row_num'];
 		$add_shelf = "INSERT INTO shelf VALUES ('$get_shop_id', 'shelf $date', '$set_shelf_name', $set_row_num, '$date')" ;
@@ -56,25 +55,13 @@
 		
 		while(@$get_shelf_id = $result->fetch()){
 			for(@$i=0; $i<$set_row_num; $i++){
-
 				$set_row_id = generateRandomString();
-				if(@$i==0)$first_row_id = $set_row_id;
 				$set_row_data = "INSERT INTO row VALUES ('$get_shelf_id[0]', 'row $set_row_id', '$get_shop_id')" ;
 				$stmt2 = $db->prepare($set_row_data);
 				$stmt2->execute();
 			}
 		}
-		
-		////////////////////////////////////////////////////////新增櫃子同時新增一排
-		/*				
-		$add_grid = "INSERT INTO grid VALUES ('0', 'row $first_row_id', '$get_shop_id', 'Arduino_Catcher', '0','0','0','0')" ;
-		$stmt3 = $db->prepare($add_grid);
-		$stmt3->execute();
-		*/
-		////////////////////////////////////////////////////////
-
 		echo '<script>window.location.href = "index2.php?&shop_id='.$get_shop_id.'";</script>';
-	
 	}
 	?>
     </body>

@@ -1,8 +1,4 @@
-<?php include("navbar.php"); 
-	$get_look = @$_GET["temp"];
-	$get_think = @$_GET["temp2"];
-	$get_key = @$_GET["temp3"];
-?>
+<?php include("navbar.php"); ?>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,10 +45,9 @@
 </head>
 <body>
 <?php
-	$get_row_id = @$_GET['row_id'];
-	$get_shelf_id = @$_GET['shelf_id'];
 	include("row_table.php");		//顯示的Table
-
+	
+	
 	////////////////////	新增格子
 	if($_POST && $_POST["doAdd"]=="1"){
 		$add_grid = "INSERT INTO grid( grid_id, row_id, shop_id, name, look, think, sold) VALUES ('grid $date', '$get_row_id', '$get_shop_id', 'Untitled', '0','0','0')" ;
@@ -84,89 +79,33 @@
 		echo '<script>window.location.href = "row.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'";</script>';
 	}
 
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	  
+	$get_row_id = @$_GET['row_id'];
+	$get_shelf_id = @$_GET['shelf_id'];
+	$grid_key = "INSERT INTO grid (key) VALUES ('".@$_GET["key"]."') WHERE row_id = '$get_row_id'";	/////////
+	$look = "INSERT INTO grid (look) VALUES ('".@$_GET["look"]."') WHERE row_id = '$get_row_id'";	/////////
+	$think = "INSERT INTO grid (think) VALUES ('".@$_GET["think"]."') WHERE row_id = '$get_row_id'";/////////
 
-	  if( $get_look != 0 ){
-		  $look = "UPDATE grid SET look = '$get_look' WHERE grid_id = '0' ";
-		  $stmt = $db->prepare($look);
-		  $stmt->execute();
-		  mysql_query($look);
-	  }
-	  if( $get_think != 0 ){
-		  $think = "UPDATE grid SET think = '$get_think' WHERE grid_id = '0' ";
-		  $stmt = $db->prepare($think);
-		  $stmt->execute();
-		  mysql_query($think);
-	  }
-	  if( $get_key != 0 ){
-		  $key_value = "UPDATE grid SET key_value = '$get_key' WHERE grid_id = '0' ";
-		  $stmt = $db->prepare($key_value);
-		  $stmt->execute();
-		  mysql_query($key_value);
-	  }
+	while($grid_data = $result->fetch()){						//弄清楚重新整理與aeduino傳值間的關係
+		if( @$grid_data["grid_id"] == $grid_id_switch[$grid_key]){
+			/*
+			$grid_key = @$_GET[""];
+			$think = @$_GET["think"];
+			$look = @$_GET["look"];	
+			*/
 
-
-	$grid = "SELECT * FROM grid WHERE row_id = '$get_row_id'";
-	$result = $db->query($grid);
-	$get_grid_id = $_GET['grid_id'];
-
-	while($grid_data = $result->fetch()){
-		if($grid_data["grid_id"]=='0'){
-			$now_look = $grid_data["look"];
-			$now_think = $grid_data["think"];
-			$now_key = $grid_data["key_value"];
-		}
-	}
-
-	
-	$grid = "SELECT * FROM grid WHERE row_id = '$get_row_id'";
-	$result = $db->query($grid);
-	$get_grid_id = $_GET['grid_id'];
-	
-	while($grid_data = $result->fetch()){		
-		if( @$grid_data["grid_id"]  == $grid_id_switch[$now_key] && ($now_look != 0 || $now_think != 0)){
+			$edit_look = @$grid_data["look"]+1;			////////
+			$edit_think = @$grid_data["think"]+1;		////////
 			
-			$show_now_id = $grid_id_switch[$now_key];
-			
-			if($now_look != 0 && $now_think != 0){
-				$edit_look_2 = $grid_data["look"]+1;			
-				$edit_think_2 = $grid_data["think"]+1;	
-			}else if($now_look != 0 ){
-				$edit_look_2 = $grid_data["look"]+1;			
-				$edit_think_2 = $grid_data["think"];	
-			}else if( $now_think != 0){
-				$edit_look_2 = $grid_data["look"];			
-				$edit_think_2 = $grid_data["think"]+1;
-			}
-			$edit_grid = "UPDATE grid SET  look = '$edit_look_2', think = '$edit_think_2' WHERE grid_id='$grid_id_switch[$now_key]'";	////////
+			$edit_grid = "UPDATE grid SET  look = '$edit_look', think = '$edit_think' WHERE row_id = '$get_row_id'AND grid_id='$grid_id_switch[$grid_key]'";	////////
 			$stmt = $db->prepare($edit_grid);
 			$stmt->execute();
-			mysql_query($edit_grid);
-			
 
-					  $look = "UPDATE grid SET look = '0' WHERE grid_id = '0' ";
-					  $stmt = $db->prepare($look);
-					  $stmt->execute();
-					  mysql_query($look);
-
-					  $think = "UPDATE grid SET think = '0' WHERE grid_id = '0' ";
-					  $stmt = $db->prepare($think);
-					  $stmt->execute();
-					  mysql_query($think);
-
-		}
-	}
-	
-	$grid = "SELECT * FROM grid WHERE row_id = '$get_row_id'";
-	$result = $db->query($grid);
-	$get_grid_id = $_GET['grid_id'];
-	
-	while($grid_data = $result->fetch()){
-		if($grid_data["grid_id"]== 	$show_now_id){
-			echo '<p已更新: '.$grid_data["neame"].'</p>';
+			$read=0;
+			$think=0;
+			$grid_key=0;
+			//echo '<form id="form_none" name="form_none"  onload="set_edit2()" style="display:none">';
+			//echo '<script>window.location.href = "row.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'";</script>';
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +120,7 @@
 			<input style="display:none" name="doAdd" value="0"/></td>
 			<input style="display:none" name="doEdit" value="0"/></td>
 			<input style="display:none" name="doDel" value="1"/></td>
-			<input name="submit" type="image" value="" src="img/delete.png"  width="64" height="64" title="刪除本格" onclick="return confirm('真的要刪除該商品嗎QQ');"/><!-- 刪除 -->
+			<input name="submit" type="image" value="" src="img/delete.png"  width="64" height="64" title="刪除本格"/>
 		</form>
 	</div>
 	<div id="footer4"> 

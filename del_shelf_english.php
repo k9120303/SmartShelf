@@ -1,4 +1,4 @@
-<?php include("navbar.php"); ?>
+<?php include("navbar_english.php"); ?>
 <?php 
 $get_shop = $db->query($shop);
 $get_shelf_id = @$_GET['shelf_id'];
@@ -15,17 +15,17 @@ $get_shelf = $db->query($shelf);
 				<div id="form_wrapper" class="w3-card-4 form_wrapper" style="margin-left: 22%">
 					<form name="form" method="post" action="" class="login active" style="width: 150%">
 						<header class="w3-container w3-black">
-							<h1>刪除
-							<font color="red"><?php if($shop_data = $get_shop->fetch()) echo $shop_data[1]; ?></font><br>
-							的 <font color="red"><?php if($shelf_data = $get_shelf->fetch()) echo $shelf_data[2]; ?></font>
+							<h1>Delete
+							<font color="red"><?php if($shelf_data = $get_shelf->fetch()) echo $shelf_data[2]; ?></font><br>
+							from <font color="red"><?php if($shop_data = $get_shop->fetch()) echo $shop_data[1]; ?></font>
 							</h1>
 						</header>
 						<div>
-							<label>注意：<br><br>請小心使用本功能 !<br>若刪除此展示櫃後，將無法再復原它。</label>
+							<label>Attention：<br><br>This shelf will be deleted.<br>You won't be able to find it anymore !</label>
 						</div>
-						<div class="bottom">
-							<input type="submit" name="button" value="刪除" /></input>
-							<input type="button" value="取消" onclick="history.back()" />
+						<div class="bottom">		
+						    <input type="submit" name="button" value="Delete" /></input>
+							<input type="button" value="Cancel" onclick="history.back()" />					
 							<div class="clear"></div>
 						</div>
 					</form>

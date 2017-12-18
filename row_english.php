@@ -1,4 +1,4 @@
-<?php include("navbar.php"); 
+<?php include("navbar_english.php"); 
 	$get_look = @$_GET["temp"];
 	$get_think = @$_GET["temp2"];
 	$get_key = @$_GET["temp3"];
@@ -51,14 +51,14 @@
 <?php
 	$get_row_id = @$_GET['row_id'];
 	$get_shelf_id = @$_GET['shelf_id'];
-	include("row_table.php");		//顯示的Table
+	include("row_table_english.php");		//顯示的Table
 
 	////////////////////	新增格子
 	if($_POST && $_POST["doAdd"]=="1"){
 		$add_grid = "INSERT INTO grid( grid_id, row_id, shop_id, name, look, think, sold) VALUES ('grid $date', '$get_row_id', '$get_shop_id', 'Untitled', '0','0','0')" ;
 		$stmt = $db->prepare($add_grid);
 		$stmt->execute();
-		echo '<script>window.location.href = "row.php?row_id='.$get_row_id.'&shelf_id='.$get_shelf_id.'&shop_id='.$get_shop_id.'";</script>';
+		echo '<script>window.location.href = "row_english.php?row_id='.$get_row_id.'&shelf_id='.$get_shelf_id.'&shop_id='.$get_shop_id.'";</script>';
 	}
 
 	////////////////////	修改選定的格子
@@ -72,7 +72,7 @@
 		$edit_grid = "UPDATE grid SET sold = '$edit_sold' , name = '$edit_name_grid', look = '$edit_look', think = '$edit_think' WHERE row_id = '$get_row_id'AND grid_id='$get_grid_id'";
 		$stmt = $db->prepare($edit_grid);
 		$stmt->execute();
-		echo '<script>window.location.href = "row.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'";</script>';
+		echo '<script>window.location.href = "row_english.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'";</script>';
 	}
 
 	////////////////////	刪除選定的格子
@@ -81,7 +81,7 @@
 		$del_grid = "DELETE FROM grid WHERE grid_id = '$get_grid_id'";
 		$stmt = $db->prepare($del_grid);
 		$stmt->execute();
-		echo '<script>window.location.href = "row.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'";</script>';
+		echo '<script>window.location.href = "row_english.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'";</script>';
 	}
 
 
@@ -173,7 +173,7 @@
 ?>
 	<div id="footer2">
 		<div id="footerback2">
-			<?php echo '<a href="del_shelf.php?shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'"><img src="img/deleteRow.png" title="刪除本櫃"/></a>'; ?>
+			<?php echo '<a href="del_shelf_english.php?shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'"><img src="img/deleteRow.png" title="刪除本櫃"/></a>'; ?>
 		</div>
 	</div>
 	<div id="footer3"> 
@@ -181,7 +181,7 @@
 			<input style="display:none" name="doAdd" value="0"/></td>
 			<input style="display:none" name="doEdit" value="0"/></td>
 			<input style="display:none" name="doDel" value="1"/></td>
-			<input name="submit" type="image" value="" src="img/delete.png"  width="64" height="64" title="刪除本格" onclick="return confirm('真的要刪除該商品嗎QQ');"/><!-- 刪除 -->
+			<input name="submit" type="image" value="" src="img/delete.png"  width="64" height="64" title="刪除本格" onclick="return confirm('真的要刪除該商品嗎?');"/><!-- 刪除 -->
 		</form>
 	</div>
 	<div id="footer4"> 

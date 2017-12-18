@@ -1,4 +1,4 @@
-<?php include("navbar.php"); ?>
+<?php include("navbar_english.php"); ?>
 <html>
     <head>
     </head>
@@ -9,21 +9,21 @@
 				<div id="form_wrapper" class="w3-card-4 form_wrapper" style="margin-left: 22%">
 					<form name="form" method="post" action="" class="login active" style="width: 150%">
 						<header class="w3-container w3-black">
-							<h1>編輯店家</h1>
+							<h1>Edit Store</h1>
 						</header>
 						<div>
-							<label>重新命名店家:</label>
+							<label>Rename:</label>
 							<input type="text" name="edit_shop_name" maxlength="15" required/>
 							<span class="error">This is an error</span>
 						</div>
 						<div>
-							<label>修改店家描述:</label>
+							<label>Update Description:</label>
 							<input type="text" name="edit_shop_describtion" maxlength="20" required/>
 							<span class="error">This is an error</span>
 						</div>
 						<div class="bottom">
-							<input type="submit" name="button" value="儲存" /></input>
-							<input type="button" value="取消" onclick="history.back()" />
+							<input type="submit" name="button" value="Save" /></input>
+							<input type="button" value="Cancel" onclick="history.back()" />
 							<div class="clear"></div>
 						</div>
 					</form>

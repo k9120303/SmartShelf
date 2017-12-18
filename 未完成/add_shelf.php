@@ -62,15 +62,18 @@
 				$set_row_data = "INSERT INTO row VALUES ('$get_shelf_id[0]', 'row $set_row_id', '$get_shop_id')" ;
 				$stmt2 = $db->prepare($set_row_data);
 				$stmt2->execute();
+
+				
 			}
 		}
 		
-		////////////////////////////////////////////////////////新增櫃子同時新增一排
-		/*				
-		$add_grid = "INSERT INTO grid VALUES ('0', 'row $first_row_id', '$get_shop_id', 'Arduino_Catcher', '0','0','0','0')" ;
-		$stmt3 = $db->prepare($add_grid);
-		$stmt3->execute();
-		*/
+		////////////////////////////////////////////////////////
+						
+					$add_grid = "INSERT INTO grid VALUES ('0', 'row $first_row_id', '$get_shop_id', 'Arduino_Catcher', '0','0','0','0')" ;
+					$stmt3 = $db->prepare($add_grid);
+					$stmt3->execute();
+
+
 		////////////////////////////////////////////////////////
 
 		echo '<script>window.location.href = "index2.php?&shop_id='.$get_shop_id.'";</script>';

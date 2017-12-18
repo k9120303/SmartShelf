@@ -175,7 +175,6 @@
 				  <a href="add_shop.php">新增店家</a>
 				  <a href="explain.php">網頁說明</a>
 				  <a href="aboutus.php">關於我們</a>
-				  <a href="login.php">登出</a>
 				  <a href="index_english.php">English</a> 
 				  </div></li>';     // 英文版
 		  }

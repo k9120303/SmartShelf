@@ -1,8 +1,9 @@
 .table-editable {
   position: relative;
+  padding-bottom:40px;
 }
 .table-editable .glyphicon {
-  font-size: 50px;
+  font-size: 20px;
 }
 
 .table-remove {

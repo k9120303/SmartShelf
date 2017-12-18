@@ -1,7 +1,7 @@
-<?php include("navbar.php"); ?>
+<?php include("navbar_english.php"); ?>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
- $con = mysqli_connect('localhost','root','117','smartshelf'); // 記得改自己的帳密
+ $con = mysqli_connect('localhost','root','E125239511','smartshelf'); // 記得改自己的帳密
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -43,7 +43,7 @@
 	 google.setOnLoadCallback(drawMaterial);
 	 function drawMaterial() {
 	 var data = google.visualization.arrayToDataTable([
-	 ['商品', '看看', '猶豫'],
+	 ['商品', 'Take a look', 'Hesitation'],
 	 <?php 
 	 $query = "SELECT think AS count, name FROM grid WHERE shop_id = '$get_shop_id' GROUP BY grid_id";
 	 $exec = mysqli_query($con,$query);
@@ -73,7 +73,7 @@
                         role: "annotation" }
 					  ]);				   
 	 var options = {
-	 title: '消費行為次數分析',
+	 title: 'Analysis of consumer behavior and times',
 	 //title: '觸及商品狀態與次數',
 	 colors: ['#0091D5','#1C4E80'],
 	 seriesType: 'bars'
@@ -101,7 +101,7 @@
 	 ?>
 	 ]);
 	 var options = {
-	 title: '商品銷售個數與比率',
+	 title: 'Number and ratio of commodity sales',
 	 //最多16色不會重複
 	 colors: ['#7E909A','#1C4E80','#488A99','#EA6A47','#DBAE58','#0091D5','#4CB5F5','#202020',
 			  '#1F3F49','#D32D41','#6AB187','#B3C100','#CED2CC','#23282D','#484848','#AC3E31'],
@@ -128,7 +128,7 @@
 	 google.setOnLoadCallback(drawChart);
 	 function drawChart() {
 	 var data = google.visualization.arrayToDataTable([
-	 ['Name', '分鐘'],
+	 ['Name', 'minutes'],
 	 <?php 
 	 $query = "SELECT 5*sum(look)+15*sum(think) AS count1, name FROM grid WHERE shop_id = '$get_shop_id' GROUP BY grid_id";	 	 
 	 $exec = mysqli_query($con,$query);
@@ -150,7 +150,7 @@
 					  ]);		
 	 var options = {
 		 colors: ['#A5D8DD'],
-	 title: '觸及各商品總時數'
+	 title: 'Total touched time of each commodity'
 	 };
 	 var chart = new google.visualization.ColumnChart(document.getElementById("columnchart1"));
 	 chart.draw(view, options);
@@ -189,7 +189,7 @@
                         role: "annotation" }
 					  ]);		
 	 var options = {
-	 title: '熱門商品潛力指數',
+	 title: 'Commodity potential index',
 	 //title: '商品潛力加權指數',
 	 //backgroundColor: '#E4E4E4', // 背景色
 	 lineWidth: 5,
@@ -246,7 +246,7 @@
 	 google.setOnLoadCallback(drawChart);
 	 function drawChart() {
 	 var data = google.visualization.arrayToDataTable([
-	 ['Name', '分鐘'],
+	 ['Name', 'minutes'],
 	 <?php 
 	 //$query = "SELECT AVG(5*sum(look)+15*sum(think) AS count1), name FROM grid";	 
 	 $query = "SELECT 5*AVG(look)+15*AVG(think) AS count1 , name FROM grid WHERE shop_id = '$get_shop_id'";	 
@@ -269,7 +269,7 @@
 					  ]);		
 	 var options = {
 		 colors: ['#A5D8EE'],
-	 title: '觸及商品總平均時數'
+	 title: 'Average touched time of all commodities'
 	 //就是觸及所有商品的總時數的平均
 	 };
 	 var chart = new google.visualization.ColumnChart(document.getElementById("columnchart4"));
@@ -284,7 +284,7 @@
 	 google.setOnLoadCallback(drawChart);
 	 function drawChart() {
 	 var data = google.visualization.arrayToDataTable([
-	 ['Name', '個 / 分鐘'],
+	 ['Name', 'per minute'],
 	 <?php 
 	 $query = "SELECT (5*AVG(look)+15*AVG(think))/60 AS count1 , name FROM grid WHERE shop_id = '$get_shop_id'";// 由秒鐘轉分鐘
 	 $exec = mysqli_query($con,$query);
@@ -309,7 +309,7 @@
                         role: "annotation" }
 					  ]);		
 	 var options = {
-	 title: '觸及商品後銷售轉換率',
+	 title: 'Sales conversion rate',
 	 //就是摸到商品後,全店平均每分鐘可以賣掉多少個商品
 	 //title: '商品銷售總轉換率',
 	 colors: ['#EE7700']
