@@ -4,15 +4,15 @@
     // Prepare variables for database connection
    
     $dbusername = "root";  
-    $dbpassword = "117";  
+    $dbpassword = "";  
     $server = "localhost";
 	$database = 'smartshelf';
 
     // Connect to your database
 
-    $dbconnect = mysqli_connect($server, $dbusername, $dbpassword);
+    $dbconnect = mysql_pconnect($server, $dbusername, $dbpassword);
 	//if($dbconnect) 	echo "Database Connected successfully !!!<br><hr>";
-    $dbselect = mysqli_select_db("smartshelf",$dbconnect);
+    $dbselect = mysql_select_db("smartshelf",$dbconnect);
 	
     /*// Prepare the SQL statement
 	// INSERT Arduino 傳的值

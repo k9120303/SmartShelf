@@ -34,7 +34,7 @@ byte colPins[COLS] = {13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2};  // 連到 Keypad
  
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );   // 建立 Keypad 物件
 
-IPAddress server(192,168,240,1); // 設定wifi的IP
+IPAddress server(192,168,1,87); // 設定wifi的IP
 YunClient client;
 char buffer[1000];   //設定字串長度
 int temp;
@@ -143,7 +143,7 @@ void loop()
       unsigned long ElapsedTime = NextTime - ThisTime;
       if( 10000 > ElapsedTime & ElapsedTime >= 3000 ) {
         look = look+1;
-        sprintf(buffer, "HEAD /SmartShelf/row.php?temp=%d?$temp3=%d HTTP/1.1", look, key );     // localhost下的絕對路徑
+        sprintf(buffer, "HEAD /SmartShelf/row.php?temp=%d?&temp3=%d HTTP/1.1", look, key );     // localhost下的絕對路徑
         client.println(buffer);   //將字串傳到網頁端
       }
       if( 60000 > ElapsedTime & ElapsedTime >= 10000) {

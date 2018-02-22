@@ -45,7 +45,7 @@ void setup()
   Console.begin();
 }
 
-IPAddress server(192,168,1,87); // 設定wifi的IP
+IPAddress server(192,168,1,73); // 設定wifi的IP
 YunClient client;
 
 void loop()

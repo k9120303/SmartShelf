@@ -66,12 +66,12 @@
 	  }
 	  else{
 		  echo '<li class="w3-hide-small w3-dropdown-hover"><div>';
-		  echo '<a href="javascript:void(0)" class="w3-hover-none w3-Indigo w3-hover-Indigo w3-hover-text-white w3-padding-large"><b>零售店</b></a>';		//index2改改
+		  echo '<a href="javascript:void(0)" class="w3-hover-none w3-Indigo w3-hover-Indigo w3-hover-text-white w3-padding-large"><b>商店列表</b></a>';		//index2改改
 	  }
 
       echo '<div class="w3-dropdown-content w3-white w3-text-black">';
 			while($shop_data = $result->fetch()) {
-				echo '<a href="index2.php?&shop_id='.$shop_data[0].'" class="w3-text-black"><b>';		//shop id
+				echo '<a href="home2.php?&shop_id='.$shop_data[0].'" class="w3-text-black"><b>';		//shop id
 				echo $shop_data[1];	//shop name
 				echo '</b></a>';
 			}
@@ -144,6 +144,8 @@
 				echo @$get_shop_id;
 				echo '&col_order=';
 				echo @$count3;
+				echo '&first=';
+				echo @$count2;
 				echo '</div>';
 
 				
@@ -175,8 +177,7 @@
 				  <a href="add_shop.php">新增店家</a>
 				  <a href="explain.php">網頁說明</a>
 				  <a href="aboutus.php">關於我們</a>
-				  <a href="login.php">登出</a>
-				  <a href="index_english.php">English</a> 
+				  <a href="index.php">登出</a>
 				  </div></li>';     // 英文版
 		  }
 		?>
@@ -186,7 +187,7 @@
 
 <div id="footer">
 	<div id="footerback">
-	<a href=index.php><img src="img/logo.png"  title="回首頁"/></a>
+	<a href=home.php><img src="img/logo.png"  title="回首頁"/></a>
 	</div>
 </div>
 

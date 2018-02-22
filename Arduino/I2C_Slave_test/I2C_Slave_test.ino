@@ -19,6 +19,6 @@ void loop() {
  
 void requestEvent()
 {
-  Wire.write("Yep, it works",20);
+  Wire.write("Yep, it works", 20);
 }
 

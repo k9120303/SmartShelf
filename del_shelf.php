@@ -43,7 +43,7 @@ $get_shelf = $db->query($shelf);
 		$stmt3 = $db->prepare($del_row);
 		$stmt3->execute();
 		
-		echo '<script>window.location.href = "index2.php?&shop_id='.$get_shop_id.'";</script>';
+		echo '<script>window.location.href = "home2.php?&shop_id='.$get_shop_id.'";</script>';
 	}
 	?>
     </body>

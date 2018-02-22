@@ -21,6 +21,12 @@
   </head>
 
 	<body>
+	<div class="w3-top" style="font-family:Microsoft JhengHei;">
+	<ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+	<li class="w3-hide-small w3-dropdown-hover">
+	<a href="javascript:void(0)" class="w3-hover-none w3-Indigo w3-hover-Indigo w3-hover-text-white w3-padding-large"><b>註冊</b></a>
+	</li></ul>
+	</div>
 		<div class="wrapper">
 			<div style="margin-top: 10%;">
 				<div id="form_wrapper" class="w3-card-4 form_wrapper" style="margin-left: 22%">

@@ -38,7 +38,7 @@
 		$edit_shop = "UPDATE shop SET shop_name = '$edit_shop_name', shop_describtion = '$edit_shop_describtion' WHERE shop_id = '$get_shop_id'" ;
 		$stmt = $db->prepare($edit_shop);
 		$stmt->execute();
-		echo '<script>window.location.href = "index2.php?&shop_id='.$get_shop_id.'";</script>';
+		echo '<script>window.location.href = "home2.php?&shop_id='.$get_shop_id.'";</script>';
 	}
 	?>
     </body>

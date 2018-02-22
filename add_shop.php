@@ -38,7 +38,7 @@
 		$add_shop = "INSERT INTO shop( shop_name, shop_id, shop_describtion ) VALUES ('$set_shop_name', 'shop $date', '$set_shop_describtion')" ;
 		$stmt = $db->prepare($add_shop);
 		$stmt->execute();
-		echo '<script>window.location.href = "index.php";</script>';
+		echo '<script>window.location.href = "home.php";</script>';
 	}
 	?>
     </body>

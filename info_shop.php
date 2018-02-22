@@ -1,7 +1,7 @@
 <?php include("navbar.php"); ?>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
- $con = mysqli_connect('localhost','root','117','smartshelf'); // 記得改自己的帳密
+ $con = mysqli_connect('localhost','root','','smartshelf'); // 記得改自己的帳密
 ?>
 <!DOCTYPE HTML>
 <html>

@@ -49,18 +49,33 @@
 </head>
 <body>
 <?php
+	$get_col_order = $_GET['col_order'];
+	$get_first = $_GET['first'];
+
 	$get_row_id = @$_GET['row_id'];
 	$get_shelf_id = @$_GET['shelf_id'];
 	include("row_table.php");		//顯示的Table
 
+		
+
 	////////////////////	新增格子
-	if($_POST && $_POST["doAdd"]=="1"){
+	if($_POST && $_POST["doAdd"]=="1" && $none_add!=1 ){
+		
 		$add_grid = "INSERT INTO grid( grid_id, row_id, shop_id, name, look, think, sold) VALUES ('grid $date', '$get_row_id', '$get_shop_id', 'Untitled', '0','0','0')" ;
 		$stmt = $db->prepare($add_grid);
 		$stmt->execute();
-		echo '<script>window.location.href = "row.php?row_id='.$get_row_id.'&shelf_id='.$get_shelf_id.'&shop_id='.$get_shop_id.'";</script>';
-	}
 
+		if($grid_id_max == 0 && $get_col_order == '1' && $get_first == '0'){
+			$add_grid_2 = "INSERT INTO grid( grid_id, row_id, shop_id, name, look, think, sold) VALUES ('grid 0', '$get_row_id', '$get_shop_id', 'Magic', '0','0','0')" ;
+			$stmt = $db->prepare($add_grid_2);
+			$stmt->execute();
+		}
+		
+
+		echo '<script>window.location.href = "row.php?row_id='.$get_row_id.'&shelf_id='.$get_shelf_id.'&shop_id='.$get_shop_id.'&col_order='.$get_col_order.'&first='.$get_first.'"</script>';
+		
+	}
+		
 	////////////////////	修改選定的格子
 	if($_POST && $_POST["doEdit"]=="1"){
 		$get_grid_id = $_GET['grid_id'];
@@ -72,7 +87,7 @@
 		$edit_grid = "UPDATE grid SET sold = '$edit_sold' , name = '$edit_name_grid', look = '$edit_look', think = '$edit_think' WHERE row_id = '$get_row_id'AND grid_id='$get_grid_id'";
 		$stmt = $db->prepare($edit_grid);
 		$stmt->execute();
-		echo '<script>window.location.href = "row.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'";</script>';
+		echo '<script>window.location.href = "row.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'&col_order='.$get_col_order.'&first='.$get_first.'"</script>';
 	}
 
 	////////////////////	刪除選定的格子
@@ -81,7 +96,7 @@
 		$del_grid = "DELETE FROM grid WHERE grid_id = '$get_grid_id'";
 		$stmt = $db->prepare($del_grid);
 		$stmt->execute();
-		echo '<script>window.location.href = "row.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'";</script>';
+		echo '<script>window.location.href = "row.php?row_id='.@$get_row_id.'&shelf_id='.@$get_shelf_id.'&shop_id='.@$get_shop_id.'&col_order=&first=";</script>';
 	}
 
 
@@ -90,31 +105,31 @@
 	  
 
 	  if( $get_look != 0 ){
-		  $look = "UPDATE grid SET look = '$get_look' WHERE grid_id = '0' ";
+		  $look = "UPDATE grid SET look = '$get_look' WHERE grid_id = 'grid 0' ";
 		  $stmt = $db->prepare($look);
 		  $stmt->execute();
 		  mysql_query($look);
 	  }
 	  if( $get_think != 0 ){
-		  $think = "UPDATE grid SET think = '$get_think' WHERE grid_id = '0' ";
+		  $think = "UPDATE grid SET think = '$get_think' WHERE grid_id = 'grid 0' ";
 		  $stmt = $db->prepare($think);
 		  $stmt->execute();
 		  mysql_query($think);
 	  }
 	  if( $get_key != 0 ){
-		  $key_value = "UPDATE grid SET key_value = '$get_key' WHERE grid_id = '0' ";
+		  $key_value = "UPDATE grid SET key_value = '$get_key' WHERE grid_id = 'grid 0' ";
 		  $stmt = $db->prepare($key_value);
 		  $stmt->execute();
 		  mysql_query($key_value);
 	  }
 
 
-	$grid = "SELECT * FROM grid WHERE row_id = '$get_row_id'";
+	$grid = "SELECT * FROM grid ";
 	$result = $db->query($grid);
 	$get_grid_id = $_GET['grid_id'];
 
 	while($grid_data = $result->fetch()){
-		if($grid_data["grid_id"]=='0'){
+		if($grid_data["grid_id"]=='grid 0'){
 			$now_look = $grid_data["look"];
 			$now_think = $grid_data["think"];
 			$now_key = $grid_data["key_value"];
@@ -130,6 +145,7 @@
 		if( @$grid_data["grid_id"]  == $grid_id_switch[$now_key] && ($now_look != 0 || $now_think != 0)){
 			
 			$show_now_id = $grid_id_switch[$now_key];
+			//echo '<div>'.$show_now_id.'</div>';
 			
 			if($now_look != 0 && $now_think != 0){
 				$edit_look_2 = $grid_data["look"]+1;			
@@ -147,12 +163,12 @@
 			mysql_query($edit_grid);
 			
 
-					  $look = "UPDATE grid SET look = '0' WHERE grid_id = '0' ";
+					  $look = "UPDATE grid SET look = '0' WHERE grid_id = 'grid 0' ";
 					  $stmt = $db->prepare($look);
 					  $stmt->execute();
 					  mysql_query($look);
 
-					  $think = "UPDATE grid SET think = '0' WHERE grid_id = '0' ";
+					  $think = "UPDATE grid SET think = '0' WHERE grid_id = 'grid 0' ";
 					  $stmt = $db->prepare($think);
 					  $stmt->execute();
 					  mysql_query($think);
@@ -205,7 +221,7 @@
 		    <input style="display:none" name="doAdd" value="1"/>
 		    <input style="display:none" name="doEdit" value="0"/>
 		    <input style="display:none" name="doDel" value="0"/>
-		  	<input name="submit" type="image" value="" src="img/add.ico" width="64" height="64" title="新增本格"/><!-- 新增 -->
+			<input name="submit" type="image" value="" src="img/add.ico" width="64" height="64" title="新增本格"/><!-- 新增 -->
 		</form>
 	</div>
 </body>

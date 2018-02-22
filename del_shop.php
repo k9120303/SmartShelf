@@ -40,7 +40,7 @@
 		$stmt3 = $db->prepare($del_row);
 		$stmt3->execute();
 		
-		echo '<script>window.location.href = "index.php";</script>';
+		echo '<script>window.location.href = "home.php";</script>';
 	}
 	?>
     </body>

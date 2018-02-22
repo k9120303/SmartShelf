@@ -1,105 +1,62 @@
-<?php include("navbar.php"); ?>  	
 <html>
-<head>
-<link rel="shortcut icon" href="img/logo.png"/>
-<style>
-
-    body { background-image: url(img/p3.jpg); }
-	
-	div.content {
-		text-align: center;
-		margin:0 auto;
-		width:60%;
-		height:50%;
-		margin-top: 5%;
+  <head>
+  <title>SmartShelf</title>
+  <link rel="shortcut icon" href="img/logo.png"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="css/w3.css">
+  <link rel="stylesheet" type="text/css" href="css/newHome_style.css">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/table.css" />
+  <style>
+    body {
+	    background-image: url(img/p3.jpg);
+	    background-repeat: no-repeat;
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-size: cover;
 	}
-
-	div.card {		
-		width:30%; 
-		float:left;  
-		background-color: 
-		rgba(255,255,255,0.75);
-	}
-</style>
-</head>
-
-<body>	  
-	<!--顯示各店家資訊-->
-	<br>
-	<br>
-	<br>
-	<div class="content" style="padding-bottom:40px;">
-		<?php
-			$result = $db->query($sql);
-			$css_count = 0;
-			while($shop_ = $result->fetch()) {
-				echo '<a href="index2.php?&shop_id='.$shop_[0].'">'; //shop id
-					echo '<div class="w3-card-4 card" style="';
-						if($css_count%3==0 && $css_count>2){		//最左排
-							echo 'margin-top: 5%;';
-						}else if($css_count%3>0 && $css_count>2){	//除去最上列與最左排
-							echo 'margin-top: 5%;';
-							echo 'margin-left: 5%;';
-						}else if($css_count%3>0 && $css_count>0){	//第一列
-							echo 'margin-left: 5%;';
-						}
-					echo'">';
-						echo '<header class="w3-container w3-Black"><p>';		// header
-						echo $shop_[1];	//shop name
-						echo '</p></header>';
-
-						echo '<div class="w3-container w3-center"><p><br>';		//描述
-						echo $shop_[2];
-						echo '<br><br></p></div>';
-					echo '</div>';
-				echo '</a>';
-				$css_count++;
-			}
-		?>
-			<!--	大guy4這樣:
-
-			<a href="index.php?&shop_id='.$shop_[0].'">'	//$shop_[0] 店id連結
-				<div class="w3-card-4 card_1" style=" 看上面註解喇 ">
-				    <header class="w3-container w3-Indigo">		//header
-					  <p> 店名 <br></p>						//$shop_[1] 店名 (shop name)
-					</header>
-					<div class="w3-container w3-center">
-					  <p><br> 描述blablabla <br><br></p>		//描述
-					</div>
-				</div>
-			</a>
-
-			資料卡底層 暫時不加:
-			<footer class="w3-container w3-blue">
-			  <p><br>文字內容<br> </p>
-			</footer>-->
+  </style>
+  </head>
+	<body>
+	<div class="w3-top" style="font-family:Microsoft JhengHei;">
+	<ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+	<li class="w3-hide-small w3-dropdown-hover">
+	<a href="javascript:void(0)" class="w3-hover-none w3-Indigo w3-hover-Indigo w3-hover-text-white w3-padding-large"><b>登入</b></a>
+	</li></ul>
 	</div>
-	<!--顯示各店家資訊END-->
-</body>
+		<div class="wrapper">
+			<div style="margin-top: 15%;">
+				<div id="form_wrapper" class="w3-card-4 form_wrapper" style="margin-left: 22%">
+					<form name="form" method="post" action="" class="login active" style="width: 150%">
+						<header class="w3-container w3-black">
+							<h1>登入 SmartShelf 系統</h1>
+						</header>
+						<div>
+							<label>電子信箱:</label>
+							<input type="email" name="set_shop_name" required/>
+							<span class="error">This is an error</span>
+						</div>
+						<div>
+							<label>密碼:</label>
+							<input type="password" name="set_shop_describtion" maxlength="20" required/>
+							<span class="error">This is an error</span>
+						</div>
+						<div class="bottom">
+							<input type="submit" name="button" value="登入" /></input>
+							<input type="button" value="註冊" onclick="location.href='register.php'" />
+							<div class="clear"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	<?php
+	if($_POST)
+	{
+		echo '<script>window.location.href = "home.php";</script>';
+	}
+	?>
+    </body>
+	
 </html>
-<!--
-
-                       _oo0oo_
-                      o8888888o
-                      88" . "88
-                      (| -_- |)
-                      0\  =  /0
-                    ___/`---'\___
-                  .' \\|     |# '.
-                 / \\|||  :  |||# \
-                / _||||| -:- |||||- \
-               |   | \\\  -  #/ |   |
-               | \_|  ''\---/''  |_/ |
-               \  .-\__  '-'  ___/-. /
-             ___'. .'  /--.--\  `. .'___
-          ."" '<  `.___\_<|>_/___.' >' "".
-         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-         \  \ `_.   \_ __\ /__ _/   .-` /  /
-     =====`-.____`.___ \_____/___.-`___.-'=====
-                       `=---='
-
-
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-               佛祖保佑         永無BUG
--->
