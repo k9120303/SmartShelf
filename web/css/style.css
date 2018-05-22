@@ -252,15 +252,15 @@ header[role="header"].header-top section h2{ font-size:48px; line-height:50px; f
 
 header[role="header"].header-top section p{ font-size:19px; line-height:20px; font-weight:500; padding-top:15px}
 
-header[role="header"].header-top section a.button-header{ display: inline-block; text-align:center; margin:0 auto; line-height:63px; font-size:16px; font-weight:400; padding:0 53px; color:#51382C; background-color:#f0b400; border-radius:4px; text-transform:uppercase}
+header[role="header"].header-top section a.button-header{ display: inline-block; text-align:center; margin:0 auto; line-height:63px; font-size:16px; font-weight:400; padding:0 53px; color:#51382C; background-color:#FFC000; border-radius:4px; text-transform:uppercase}
 
-header[role="header"].header-top section a.button-header:hover{background-color:#f0b400; text-decoration:none}
+header[role="header"].header-top section a.button-header:hover{background-color:#FFC000; text-decoration:none}
 
 header[role="header"].header-top section a.video-button,.video-pan header a.video-button{ margin:67px auto; margin-bottom:60px; display:block; cursor:pointer; outline:none; background-color:transparent; border:3px solid #FFF; border-radius:100%; width:94px; height:94px; line-height:94px; font-size:60px; text-align:center; color:#FFF;}
 
 header[role="header"].header-top section a.video-button i,.video-pan header a.video-button i{ padding-left:10px}
 
-header[role="header"].header-top section a.video-button:hover,.video-pan header a.video-button:hover{ border-color:#f0b400}
+header[role="header"].header-top section a.video-button:hover,.video-pan header a.video-button:hover{ border-color:#FFC000}
 
 .video-wrapper-popup .modal-content{ background-color:#000}
 
